@@ -5,6 +5,7 @@ import { useResizeListener } from "./useResizeListener";
 interface PixiProps {
   backgroundColor?: number;
   onAppChange?: (app: PIXI.Application) => void;
+  onResized?: () => void;
 }
 
 const styles = {
@@ -16,7 +17,11 @@ const styles = {
   },
 };
 
-export const Pixi = ({ backgroundColor, onAppChange }: PixiProps) => {
+export const Pixi = ({
+  backgroundColor,
+  onAppChange,
+  onResized,
+}: PixiProps) => {
   const [app, setApp] = useState<PIXI.Application>();
   const pixiElement = useRef<HTMLDivElement>(null);
 
@@ -34,6 +39,7 @@ export const Pixi = ({ backgroundColor, onAppChange }: PixiProps) => {
   const onResize = useCallback(() => {
     if (app) {
       resize(app);
+      onResized && onResized();
     } else {
       console.log("no app to resize");
     }
@@ -46,6 +52,7 @@ export const Pixi = ({ backgroundColor, onAppChange }: PixiProps) => {
     });
     resize(pixi);
     setApp(pixi);
+    console.log("pixi is updated");
     onAppChange && onAppChange(pixi);
   }, [backgroundColor]);
 
