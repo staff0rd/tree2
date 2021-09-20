@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Pixi } from "./Pixi";
+import { yellow } from "@mui/material/colors";
+import * as PIXI from "pixi.js";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
-      <Pixi backgroundColor={0xff0000} />
+      <Pixi backgroundColor={PIXI.utils.string2hex(yellow["100"])} />
     </div>
   );
 }
